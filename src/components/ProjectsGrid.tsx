@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { projectsData } from "@/data/projects";
 
 export default function ProjectsGrid() {
@@ -14,7 +15,7 @@ export default function ProjectsGrid() {
         <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-4xl mx-auto z-10">
+      <div className="relative max-w-5xl mx-auto z-10">
         {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -52,8 +53,8 @@ export default function ProjectsGrid() {
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-          {projectsData.map((project, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+          {projectsData.slice(0, 4).map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -64,8 +65,8 @@ export default function ProjectsGrid() {
                 ease: "easeOut",
               }}
               viewport={{ once: true }}
-              whileHover={{ y: -3, scale: 1.02 }}
-              className="group relative aspect-square bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-900/60 backdrop-blur-sm border border-cyan-500/20 rounded-lg overflow-hidden hover:border-cyan-400/40 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300"
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="group relative h-64 bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-900/60 backdrop-blur-sm border border-cyan-500/20 rounded-xl overflow-hidden hover:border-cyan-400/40 hover:shadow-xl hover:shadow-cyan-500/30 transition-all duration-300"
             >
               {/* Background Image */}
               <div className="absolute inset-0">
@@ -73,31 +74,32 @@ export default function ProjectsGrid() {
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover opacity-40 group-hover:opacity-50 group-hover:scale-110 transition-all duration-300"
+                    className="w-full h-full object-cover opacity-60 group-hover:opacity-70 group-hover:scale-105 transition-all duration-500"
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-cyan-500/20 via-blue-600/20 to-purple-600/20" />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent" />
+                {/* Strong bottom gradient so text is always readable */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/75 to-slate-900/20" />
               </div>
 
               {/* Content */}
-              <div className="relative z-10 p-4 h-full flex flex-col justify-end">
-                <h3 className="text-sm font-bold text-white mb-1 tracking-tight group-hover:text-cyan-400 transition-colors line-clamp-2">
+              <div className="relative z-10 p-5 h-full flex flex-col justify-end">
+                <h3 className="text-base font-bold text-white mb-2 tracking-tight group-hover:text-cyan-400 transition-colors line-clamp-2">
                   {project.title}
                 </h3>
 
                 {/* Summary */}
-                <p className="text-gray-300 text-xs mb-2 line-clamp-2 leading-relaxed">
+                <p className="text-gray-300 text-sm mb-3 line-clamp-2 leading-relaxed">
                   {project.summary}
                 </p>
 
                 {/* Tech Stack */}
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-1.5">
                   {project.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="inline-block px-1.5 py-0.5 bg-cyan-500/30 text-cyan-300 text-[10px] font-medium rounded border border-cyan-500/40"
+                      className="inline-block px-2 py-0.5 bg-cyan-500/30 text-cyan-300 text-xs font-medium rounded border border-cyan-500/40"
                     >
                       {tech}
                     </span>
@@ -112,10 +114,10 @@ export default function ProjectsGrid() {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 text-xs font-medium text-cyan-400 border border-cyan-500/40 rounded hover:bg-cyan-500/10 transition-all"
+                    className="px-4 py-2 text-xs font-medium text-cyan-400 border border-cyan-500/40 rounded-lg hover:bg-cyan-500/10 transition-all"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    GitHub
+                    Code
                   </a>
                 )}
                 {project.liveDemo && (
@@ -123,16 +125,43 @@ export default function ProjectsGrid() {
                     href={project.liveDemo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 text-xs font-medium text-white bg-cyan-600 rounded hover:bg-cyan-500 transition-all"
+                    className="px-4 py-2 text-xs font-medium text-white bg-cyan-600 rounded-lg hover:bg-cyan-500 transition-all"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    Demo
+                    View Demo
                   </a>
                 )}
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* View More Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <Link href="/projects">
+            <motion.div
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="inline-flex items-center gap-2 px-8 py-3 border-2 border-cyan-500/50 text-cyan-400 rounded-xl font-semibold text-sm hover:bg-cyan-500/10 hover:border-cyan-400 transition-all"
+            >
+              <span>View All Projects</span>
+              <motion.span
+                className="inline-block"
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+            </motion.div>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

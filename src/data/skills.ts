@@ -5,44 +5,58 @@ export interface SkillCategory {
 
 export const skillsData: SkillCategory[] = [
   {
-    category: "Frontend",
-    skills: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Framer Motion",
-      "JavaScript",
-    ],
-  },
-  {
-    category: "Backend",
-    skills: ["Node.js", "Express", "MongoDB", "PostgreSQL", "REST APIs"],
-  },
-  {
     category: "Product & PM",
     skills: [
       "Product Strategy",
+      "Product Discovery",
       "User Research",
-      "Wireframing",
-      "Metrics & Analytics",
+      "Feature Prioritization",
       "Roadmap Planning",
+      "Experimentation",
+      "Metrics & Analytics",
       "Stakeholder Management",
     ],
   },
   {
-    category: "Tools & Methods",
+    category: "Product Development Foundations",
+    skills: [
+      "React",
+      "JavaScript",
+      "HTML/CSS",
+      "Tailwind CSS",
+      "Component Design",
+      "UI Implementation",
+    ],
+  },
+  {
+    category: "Systems & APIs",
+    skills: [
+      "Node.js",
+      "REST APIs",
+      "MongoDB",
+      "PostgreSQL",
+      "API Design Understanding",
+    ],
+  },
+  {
+    category: "Tools & Product Methods",
     skills: [
       "Figma",
       "Notion",
-      "Git",
-      "Testing",
+      "Jira",
+      "Product Documentation",
       "Design Thinking",
       "Agile/Scrum",
     ],
   },
   {
-    category: "Other",
-    skills: ["Python", "System Design", "Machine Learning", "CUDA", "AWS"],
+    category: "Technical Foundations",
+    skills: [
+      "Python",
+      "System Design",
+      "Data Analysis",
+      "Machine Learning",
+      "AWS",
+    ],
   },
 ];

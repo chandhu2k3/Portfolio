@@ -37,7 +37,7 @@ export default function JourneyTimeline() {
             viewport={{ once: true }}
           >
             <p className="text-gray-300 text-base font-light">
-              From engineering excellence to product leadership
+              Tracing my path from building systems to understanding products
             </p>
           </motion.div>
           <motion.div
@@ -53,7 +53,7 @@ export default function JourneyTimeline() {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-500 md:-translate-x-1/2 shadow-lg shadow-cyan-500/30" />
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2" style={{ background: "linear-gradient(to bottom, #22d3ee, #3b82f6, #a855f7)", zIndex: 0 }} />
 
           {/* Timeline Items */}
           <div className="space-y-8">
@@ -68,12 +68,13 @@ export default function JourneyTimeline() {
                   ease: "easeOut",
                 }}
                 viewport={{ once: true }}
-                className={`flex md:flex-row gap-8 ${
-                  index % 2 === 0 ? "md:flex-row-reverse" : ""
-                }`}
+                className={`relative flex items-center ${
+                  index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
+                } flex-col md:flex-row`}
+                style={{ zIndex: 1 }}
               >
                 {/* Content */}
-                <div className="md:w-1/2">
+                <div className="w-full md:w-[calc(50%-2.5rem)]">
                   <motion.div
                     whileHover={{ scale: 1.02, y: -3 }}
                     transition={{ type: "spring", stiffness: 300 }}
@@ -98,7 +99,7 @@ export default function JourneyTimeline() {
                 </div>
 
                 {/* Center Dot */}
-                <div className="hidden md:flex md:w-0 justify-center items-center">
+                <div className="hidden md:flex w-20 shrink-0 justify-center items-center" style={{ zIndex: 2 }}>
                   <motion.div
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
@@ -108,12 +109,13 @@ export default function JourneyTimeline() {
                       stiffness: 300,
                     }}
                     viewport={{ once: true }}
-                    className="w-5 h-5 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full border-4 border-slate-900 shadow-xl shadow-cyan-500/60 animate-pulse-glow"
+                    className="w-5 h-5 rounded-full border-4 border-slate-900 shadow-xl shadow-cyan-500/60"
+                    style={{ background: "linear-gradient(to right, #22d3ee, #3b82f6)" }}
                   />
                 </div>
 
                 {/* Empty Space */}
-                <div className="hidden md:block md:w-1/2" />
+                <div className="hidden md:block w-[calc(50%-2.5rem)]" />
               </motion.div>
             ))}
           </div>

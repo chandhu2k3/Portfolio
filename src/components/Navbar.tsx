@@ -132,7 +132,7 @@ export default function Navbar() {
                   Chandra Kanth
                 </span>
                 <span className="text-xs font-medium text-cyan-400/80 tracking-wider uppercase">
-                  Product Engineer
+                  Product Design And Management | IIIT Hyderabad
                 </span>
               </div>
             </Link>

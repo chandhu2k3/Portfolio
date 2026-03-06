@@ -49,6 +49,7 @@ export default function HeroSection() {
             <h2 className="text-xl font-bold text-white tracking-tight text-center">
               Nagam Chandrakanth Reddy
             </h2>
+            <h4 className="text-lg font-bold text-white tracking-tight text-center" >Product Design & Management | IIIT Hyderabad</h4>
           </motion.div>
 
           {/* Main Content - Right Side */}
@@ -59,21 +60,19 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-5 leading-[1.1] tracking-tight">
-                <span className="text-white drop-shadow-lg">
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-5 leading-tight tracking-tight whitespace-nowrap">
+                <span className="block text-white drop-shadow-lg">
                   Product-Focused Engineer
                 </span>
-                <br />
-                <span className="text-white drop-shadow-lg">
-                  Transitioning into
+                <span className="block text-white drop-shadow-lg">
+                  Bridging
                 </span>
-                <br />
                 <motion.span
-                  className="inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient"
+                  className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  Product Management
+                  Tech &amp; Product Thinking
                 </motion.span>
               </h1>
             </motion.div>
@@ -85,12 +84,11 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
               className="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed font-light"
             >
-              I combine a strong engineering foundation with structured product
-              thinking to identify{" "}
+             I combine a strong engineering foundation with structured product thinking to identify .{" "}
               <span className="text-cyan-400 font-medium">
-                user problems, validate solutions, and support data-informed
-                product decisions.
+                user problems, validate solutions, and build meaningful digital experiences 
               </span>{" "}
+              . My focus lies in understanding  <span className="text-cyan-400 font-medium"> user needs, shaping product strategy, and translating insights into impactful products .</span>
             </motion.p>
 
             {/* CTAs */}
@@ -124,7 +122,7 @@ export default function HeroSection() {
                   }}
                   className="group relative px-6 py-2.5 bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-700 text-white rounded-xl font-semibold text-sm shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/60 transition-all overflow-hidden"
                 >
-                  <span className="relative z-10">View Case Studies</span>
+                  <span className="relative z-10">Explore Case Studies</span>
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"
                     initial={false}

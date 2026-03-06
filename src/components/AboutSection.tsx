@@ -50,59 +50,40 @@ export default function AboutSection() {
             viewport={{ once: true }}
           >
             <h3 className="text-2xl font-bold mb-5 text-white tracking-tight">
-              Developer → Product Thinker
+              From Engineering to Product Thinking
             </h3>
             <p className="text-gray-300 text-base mb-5 leading-relaxed">
-              I&apos;m a{" "}
-              <span className="font-semibold text-white">
-                software engineer
-              </span>{" "}
-              transitioning into{" "}
-              <span className="font-semibold text-white">
-                product management
-              </span>
-              , motivated by working closer to{" "}
-              <span className="font-semibold text-white">users</span> and{" "}
-              <span className="font-semibold text-white">
-                business outcomes
-              </span>{" "}
-              rather than focusing only on implementation. My engineering
-              background helps me reason about feasibility, trade-offs, and
-              system constraints, while my product work focuses on{" "}
-              <span className="font-semibold text-white">
-                problem discovery
-              </span>
-              ,<span className="font-semibold text-white">user research</span>,
-              and{" "}
-              <span className="font-semibold text-white">
-                structured decision-making
-              </span>
-              .
+              I began my journey as a{" "}
+              <span className="font-semibold text-white">software engineer</span>,
+              building user-facing applications and collaborating closely with
+              development teams. Over time, I became increasingly interested in
+              understanding the <span className="font-semibold text-white">why</span>{" "}
+              behind products — identifying user problems, validating solutions, and
+              shaping decisions that drive meaningful outcomes.
             </p>
             <p className="text-gray-300 text-base mb-5 leading-relaxed">
-              Currently, I am enrolled in the{" "}
+              My engineering background enables me to reason about{" "}
+              <span className="font-semibold text-white">technical feasibility</span>,
+              system trade-offs, and effective collaboration with engineers. Alongside
+              this foundation, I&apos;ve been developing a strong interest in{" "}
+              <span className="font-semibold text-white">product discovery</span>,{" "}
+              <span className="font-semibold text-white">user research</span>, and
+              structured product decision-making.
+            </p>
+            <p className="text-gray-300 text-base mb-5 leading-relaxed">
+              Currently, I am pursuing the{" "}
               <span className="font-bold text-white">
                 Product Design and Management (PDM)
               </span>{" "}
               program at{" "}
-              <span className="font-semibold text-white">IIIT Hyderabad</span>,
-              where I am strengthening my understanding of product strategy,
-              user research, and data-informed decision-making through hands-on
-              projects and case studies.
-            </p>
-            <p className="text-gray-300 text-base mb-5 leading-relaxed">
-              Through my{" "}
-              <span className="font-semibold text-white">projects</span> and{" "}
-              <span className="font-semibold text-white">case studies</span>, I
-              &apos;ve explored how products are shaped by user needs,
-              constraints, and data — and how thoughtful decisions at early
-              stages can significantly impact{" "}
-              <span className="font-semibold text-white">user experience</span>{" "}
-              and outcomes.
+              <span className="font-semibold text-white">IIIT Hyderabad</span>, where
+              I am strengthening my understanding of product strategy, user research,
+              and data-informed product decisions through hands-on projects and case
+              studies.
             </p>
           </motion.div>
 
-          {/* Right Column - Stats/Skills Preview */}
+          {/* Right Column - What I Bring */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -113,46 +94,44 @@ export default function AboutSection() {
           >
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-2xl" />
             <div className="relative z-10">
-              <h3 className="text-xl font-semibold mb-8 text-cyan-400 tracking-tight">
-                What I Bring In
+              <h3 className="text-xl font-semibold mb-6 text-cyan-400 tracking-tight">
+                What I Bring to Product Teams
               </h3>
-              <div className="space-y-6">
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <p className="font-medium text-white mb-1 text-base">
-                    Technical foundation enabling effective engineering
-                    collaboration
-                  </p>
-                </motion.div>
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <p className="font-medium text-white mb-1 text-base">
-                    Structured problem framing and hypothesis-driven thinking
-                  </p>
-                </motion.div>
-
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <p className="font-medium text-white mb-1 text-base">
-                    User research, usability evaluation, and data-informed
-                    metrics
-                  </p>
-                </motion.div>
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <p className="font-medium text-white mb-1 text-base">
-                    Curiosity and learning mindset suited for early-career
-                    product roles
-                  </p>
-                </motion.div>
+              <div className="space-y-5">
+                {[
+                  {
+                    icon: "⚙️",
+                    text: "Strong technical foundation enabling effective collaboration with engineering teams",
+                  },
+                  {
+                    icon: "🧩",
+                    text: "Structured problem framing and hypothesis-driven thinking",
+                  },
+                  {
+                    icon: "🔍",
+                    text: "User research and usability evaluation to uncover meaningful insights",
+                  },
+                  {
+                    icon: "📊",
+                    text: "Data-informed decision making supported by metrics and experimentation",
+                  },
+                  {
+                    icon: "🌱",
+                    text: "Curiosity and continuous learning mindset suited for early-career product roles",
+                  },
+                ].map((item, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className="flex items-start gap-3"
+                  >
+                    <span className="text-xl mt-0.5 shrink-0">{item.icon}</span>
+                    <p className="font-medium text-white text-sm leading-relaxed">
+                      {item.text}
+                    </p>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </motion.div>
