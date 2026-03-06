@@ -135,7 +135,8 @@ export default function HeroSection() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <a
-                  href="/resume.pdf"
+                  href="/Chandrakanth_Resume_PM.pdf"
+                
                   download
                   className="px-6 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-xl font-semibold text-sm hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all backdrop-blur-sm"
                 >
