@@ -74,7 +74,7 @@ export default function JourneyTimeline() {
                 style={{ zIndex: 1 }}
               >
                 {/* Content */}
-                <div className="w-full md:w-[calc(50%-2.5rem)]">
+                <div className="w-full md:w-[calc(50%-2.5rem)] border-l-2 border-cyan-400/30 pl-4 md:border-l-0 md:pl-0">
                   <motion.div
                     whileHover={{ scale: 1.02, y: -3 }}
                     transition={{ type: "spring", stiffness: 300 }}

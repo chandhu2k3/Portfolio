@@ -165,9 +165,7 @@ export default function CaseStudiesGrid() {
           className="text-center"
         >
           <motion.a
-            href="https://www.notion.so/2c1212b5a059806587bbcf3229e3a965?v=2c1212b5a05980a4a1ab000cf22097ca&source=copy_link"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/case-studies"
             whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}

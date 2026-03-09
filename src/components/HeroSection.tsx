@@ -29,15 +29,15 @@ export default function HeroSection() {
       </div>
 
       <div className="relative max-w-5xl mx-auto z-10">
-        <div className="grid lg:grid-cols-[auto_auto] gap-12 items-center justify-center">
+        <div className="flex flex-col items-center lg:grid lg:grid-cols-[auto_auto] gap-8 lg:gap-12 lg:items-center lg:justify-center">
           {/* Profile Photo - Left Side */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="hidden lg:flex flex-col items-center gap-4"
+            className="flex flex-col items-center gap-3 lg:gap-4"
           >
-            <div className="relative w-56 h-56 rounded-full overflow-hidden bg-gradient-to-br from-slate-800/50 via-slate-900/50 to-blue-950/50 backdrop-blur-sm border-4 border-cyan-500/30 shadow-2xl">
+            <div className="relative w-32 h-32 sm:w-44 sm:h-44 lg:w-56 lg:h-56 rounded-full overflow-hidden bg-gradient-to-br from-slate-800/50 via-slate-900/50 to-blue-950/50 backdrop-blur-sm border-2 lg:border-4 border-cyan-500/30 shadow-2xl">
               {/* Subtle gradient overlay to blend with background */}
               <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-transparent to-blue-950/30 z-10 pointer-events-none" />
               <img
@@ -46,21 +46,21 @@ export default function HeroSection() {
                 className="w-full h-full object-cover opacity-95"
               />
             </div>
-            <h2 className="text-xl font-bold text-white tracking-tight text-center">
+            <h2 className="text-sm sm:text-base lg:text-xl font-bold text-white tracking-tight text-center">
               Nagam Chandrakanth Reddy
             </h2>
-            <h4 className="text-lg font-bold text-white tracking-tight text-center" >Product Design & Management | IIIT Hyderabad</h4>
+            <h4 className="text-xs lg:text-sm font-medium text-gray-300 tracking-tight text-center">Product Design & Management | IIIT Hyderabad</h4>
           </motion.div>
 
           {/* Main Content - Right Side */}
-          <div className="text-center lg:text-left max-w-xl">
+          <div className="text-center lg:text-left w-full max-w-xl">
             {/* Main Headline */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-5 leading-tight tracking-tight whitespace-nowrap">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-5 leading-tight tracking-tight">
                 <span className="block text-white drop-shadow-lg">
                   Product-Focused Engineer
                 </span>

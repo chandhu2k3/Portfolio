@@ -41,7 +41,7 @@ export default function AboutSection() {
         </motion.div>
 
         {/* About Content */}
-        <div className="grid md:grid-cols-2 gap-12 mb-20 items-center">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-12 mb-10 md:mb-20 items-center">
           {/* Left Column - Text */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -144,7 +144,7 @@ export default function AboutSection() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          <h3 className="text-3xl font-bold mb-12 text-center text-white tracking-tight">
+          <h3 className="text-3xl font-bold mb-6 md:mb-12 text-center text-white tracking-tight">
             Skills & Tools
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
