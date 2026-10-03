@@ -1,21 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { journeyData } from "@/data/journey";
+import type { JourneyEntry } from "@/lib/types";
 
-export default function JourneyTimeline() {
+interface Props {
+  items?: JourneyEntry[];
+}
+
+export default function JourneyTimeline({ items = [] }: Props) {
   return (
     <section
       id="journey"
       className="relative py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden"
     >
-      {/* Background Accent */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-5xl mx-auto z-10">
-        {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -50,16 +52,19 @@ export default function JourneyTimeline() {
           />
         </motion.div>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Vertical Line */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2" style={{ background: "linear-gradient(to bottom, #22d3ee, #3b82f6, #a855f7)", zIndex: 0 }} />
+          <div
+            className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2"
+            style={{
+              background: "linear-gradient(to bottom, #22d3ee, #3b82f6, #a855f7)",
+              zIndex: 0,
+            }}
+          />
 
-          {/* Timeline Items */}
           <div className="space-y-8">
-            {journeyData.map((item, index) => (
+            {items.map((item, index) => (
               <motion.div
-                key={item.year}
+                key={`${item.year}-${index}`}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{
@@ -73,7 +78,6 @@ export default function JourneyTimeline() {
                 } flex-col md:flex-row`}
                 style={{ zIndex: 1 }}
               >
-                {/* Content */}
                 <div className="w-full md:w-[calc(50%-2.5rem)] border-l-2 border-cyan-400/30 pl-4 md:border-l-0 md:pl-0">
                   <motion.div
                     whileHover={{ scale: 1.02, y: -3 }}
@@ -98,8 +102,10 @@ export default function JourneyTimeline() {
                   </motion.div>
                 </div>
 
-                {/* Center Dot */}
-                <div className="hidden md:flex w-20 shrink-0 justify-center items-center" style={{ zIndex: 2 }}>
+                <div
+                  className="hidden md:flex w-20 shrink-0 justify-center items-center"
+                  style={{ zIndex: 2 }}
+                >
                   <motion.div
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
@@ -110,11 +116,12 @@ export default function JourneyTimeline() {
                     }}
                     viewport={{ once: true }}
                     className="w-5 h-5 rounded-full border-4 border-slate-900 shadow-xl shadow-cyan-500/60"
-                    style={{ background: "linear-gradient(to right, #22d3ee, #3b82f6)" }}
+                    style={{
+                      background: "linear-gradient(to right, #22d3ee, #3b82f6)",
+                    }}
                   />
                 </div>
 
-                {/* Empty Space */}
                 <div className="hidden md:block w-[calc(50%-2.5rem)]" />
               </motion.div>
             ))}

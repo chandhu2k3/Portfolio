@@ -1,21 +1,28 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { skillsData } from "@/data/skills";
+import type { SiteSettings, SkillGroup } from "@/lib/types";
 
-export default function AboutSection() {
+interface Props {
+  settings?: SiteSettings;
+  skills?: SkillGroup[];
+}
+
+export default function AboutSection({ settings, skills = [] }: Props) {
+  const heading = settings?.aboutHeading ?? "From Engineering to Product Thinking";
+  const paragraphs = settings?.aboutParagraphs ?? [];
+  const whatIBring = settings?.whatIBring ?? [];
+
   return (
     <section
       id="about"
       className="relative py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 overflow-hidden"
     >
-      {/* Background Accent */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-6xl mx-auto z-10">
-        {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,9 +47,7 @@ export default function AboutSection() {
           />
         </motion.div>
 
-        {/* About Content */}
         <div className="grid md:grid-cols-2 gap-6 md:gap-12 mb-10 md:mb-20 items-center">
-          {/* Left Column - Text */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -50,40 +55,18 @@ export default function AboutSection() {
             viewport={{ once: true }}
           >
             <h3 className="text-2xl font-bold mb-5 text-white tracking-tight">
-              From Engineering to Product Thinking
+              {heading}
             </h3>
-            <p className="text-gray-300 text-base mb-5 leading-relaxed">
-              I began my journey as a{" "}
-              <span className="font-semibold text-white">software engineer</span>,
-              building user-facing applications and collaborating closely with
-              development teams. Over time, I became increasingly interested in
-              understanding the <span className="font-semibold text-white">why</span>{" "}
-              behind products — identifying user problems, validating solutions, and
-              shaping decisions that drive meaningful outcomes.
-            </p>
-            <p className="text-gray-300 text-base mb-5 leading-relaxed">
-              My engineering background enables me to reason about{" "}
-              <span className="font-semibold text-white">technical feasibility</span>,
-              system trade-offs, and effective collaboration with engineers. Alongside
-              this foundation, I&apos;ve been developing a strong interest in{" "}
-              <span className="font-semibold text-white">product discovery</span>,{" "}
-              <span className="font-semibold text-white">user research</span>, and
-              structured product decision-making.
-            </p>
-            <p className="text-gray-300 text-base mb-5 leading-relaxed">
-              Currently, I am pursuing the{" "}
-              <span className="font-bold text-white">
-                Product Design and Management (PDM)
-              </span>{" "}
-              program at{" "}
-              <span className="font-semibold text-white">IIIT Hyderabad</span>, where
-              I am strengthening my understanding of product strategy, user research,
-              and data-informed product decisions through hands-on projects and case
-              studies.
-            </p>
+            {paragraphs.map((p, i) => (
+              <p
+                key={i}
+                className="text-gray-300 text-base mb-5 leading-relaxed last:mb-0"
+              >
+                {p}
+              </p>
+            ))}
           </motion.div>
 
-          {/* Right Column - What I Bring */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -98,35 +81,16 @@ export default function AboutSection() {
                 What I Bring to Product Teams
               </h3>
               <div className="space-y-5">
-                {[
-                  {
-                    icon: "⚙️",
-                    text: "Strong technical foundation enabling effective collaboration with engineering teams",
-                  },
-                  {
-                    icon: "🧩",
-                    text: "Structured problem framing and hypothesis-driven thinking",
-                  },
-                  {
-                    icon: "🔍",
-                    text: "User research and usability evaluation to uncover meaningful insights",
-                  },
-                  {
-                    icon: "📊",
-                    text: "Data-informed decision making supported by metrics and experimentation",
-                  },
-                  {
-                    icon: "🌱",
-                    text: "Curiosity and continuous learning mindset suited for early-career product roles",
-                  },
-                ].map((item, i) => (
+                {whatIBring.map((item, i) => (
                   <motion.div
                     key={i}
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                     className="flex items-start gap-3"
                   >
-                    <span className="text-xl mt-0.5 shrink-0">{item.icon}</span>
+                    <span className="text-xl mt-0.5 shrink-0">
+                      {item.icon ?? "→"}
+                    </span>
                     <p className="font-medium text-white text-sm leading-relaxed">
                       {item.text}
                     </p>
@@ -137,7 +101,6 @@ export default function AboutSection() {
           </motion.div>
         </div>
 
-        {/* Skills Grid - Keep existing */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -148,7 +111,7 @@ export default function AboutSection() {
             Skills & Tools
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {skillsData.map((skillGroup, index) => (
+            {skills.map((skillGroup, index) => (
               <motion.div
                 key={skillGroup.category}
                 initial={{ opacity: 0, y: 30 }}

@@ -4,27 +4,28 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import type { SiteSettings } from "@/lib/types";
 
-export default function Navbar() {
+interface Props {
+  settings?: SiteSettings;
+}
+
+export default function Navbar({ settings }: Props) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
 
+  const shortName = settings?.shortName ?? "Chandra Kanth";
+  const role = settings?.role ?? "Product Design And Management | IIIT Hyderabad";
+  const logoLetter = settings?.logoLetter ?? "C";
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      // Detect active section on homepage
       if (pathname === "/") {
-        const sections = [
-          "hero",
-          "about",
-          "journey",
-          "projects",
-          "case-studies",
-        ];
-
+        const sections = ["hero", "about", "journey", "projects", "case-studies"];
         let foundSection = "";
         for (const section of sections) {
           const element = document.getElementById(section);
@@ -37,7 +38,6 @@ export default function Navbar() {
           }
         }
 
-        // Check if we're at contact section - if so, clear active section
         const contactElement = document.getElementById("contact");
         if (contactElement) {
           const contactRect = contactElement.getBoundingClientRect();
@@ -54,6 +54,7 @@ export default function Navbar() {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
+
   const navItems = [
     { label: "Hello!", href: "/", section: "hero" },
     { label: "About", href: "/#about", section: "about" },
@@ -71,17 +72,11 @@ export default function Navbar() {
       const sectionId = href.substring(2);
       const element = document.getElementById(sectionId);
       if (element) {
-        const navHeight = 100; // Adjust based on navbar height
+        const navHeight = 100;
         const elementPosition =
           element.getBoundingClientRect().top + window.pageYOffset;
         const offsetPosition = elementPosition - navHeight;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-
-        // Update active section
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         setActiveSection(sectionId);
       }
     } else if (href === "/") {
@@ -99,7 +94,6 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8"
       >
-        {/* Full-Width Glass Container */}
         <motion.div
           className={`relative rounded-2xl transition-all duration-500 ${
             isScrolled
@@ -107,37 +101,33 @@ export default function Navbar() {
               : "bg-slate-900/75 backdrop-blur-lg border border-white/10"
           }`}
         >
-          {/* Subtle top glow */}
           <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
 
           <div className="flex items-center justify-between px-6 lg:px-8 h-14">
-            {/* Logo */}
             <Link href="/" className="group flex items-center gap-4 shrink-0">
               <motion.div
                 className="relative"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {/* Glow effect */}
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-500" />
-
-                {/* Logo container */}
                 <div className="relative w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-500 flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-base">C</span>
+                  <span className="text-white font-bold text-base">
+                    {logoLetter}
+                  </span>
                 </div>
               </motion.div>
 
               <div className="hidden sm:flex flex-col">
                 <span className="font-bold text-base text-white tracking-tight leading-none">
-                  Chandra Kanth
+                  {shortName}
                 </span>
                 <span className="text-xs font-medium text-cyan-400/80 tracking-wider uppercase">
-                  Product Design And Management | IIIT Hyderabad
+                  {role}
                 </span>
               </div>
             </Link>
 
-            {/* Desktop Navigation - Centered */}
             <div className="hidden lg:flex items-center gap-6 flex-1 justify-center mx-12">
               {navItems.map((item, index) => {
                 const isActive = activeSection === item.section;
@@ -156,7 +146,6 @@ export default function Navbar() {
                         className="relative px-4 py-2 text-xs font-semibold cursor-pointer group"
                         whileHover="hover"
                       >
-                        {/* Active background */}
                         {isActive && (
                           <motion.div
                             layoutId="activeSection"
@@ -171,7 +160,6 @@ export default function Navbar() {
                           />
                         )}
 
-                        {/* Slide background on hover */}
                         <motion.div
                           className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500/15 to-blue-500/15 opacity-0"
                           variants={{
@@ -183,7 +171,6 @@ export default function Navbar() {
                           }}
                         />
 
-                        {/* Text */}
                         <span
                           className={`relative z-10 transition-colors duration-300 ${
                             isActive
@@ -194,13 +181,10 @@ export default function Navbar() {
                           {item.label}
                         </span>
 
-                        {/* Bottom indicator - show when active */}
                         <motion.div
                           className="absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"
                           initial={false}
-                          animate={{
-                            width: isActive ? "75%" : "0%",
-                          }}
+                          animate={{ width: isActive ? "75%" : "0%" }}
                           variants={{
                             hover: {
                               width: "75%",
@@ -215,7 +199,6 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* CTA Button */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -232,9 +215,8 @@ export default function Navbar() {
                     const elementPosition =
                       contactSection.getBoundingClientRect().top +
                       window.pageYOffset;
-                    const offsetPosition = elementPosition - navHeight;
                     window.scrollTo({
-                      top: offsetPosition,
+                      top: elementPosition - navHeight,
                       behavior: "smooth",
                     });
                   }
@@ -246,7 +228,6 @@ export default function Navbar() {
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  {/* Gradient background */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-blue-600"
                     variants={{
@@ -256,8 +237,6 @@ export default function Navbar() {
                       },
                     }}
                   />
-
-                  {/* Animated shine effect */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full"
                     variants={{
@@ -267,8 +246,6 @@ export default function Navbar() {
                       },
                     }}
                   />
-
-                  {/* Glow effect */}
                   <motion.div
                     className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl blur-xl opacity-0 -z-10"
                     variants={{
@@ -278,7 +255,6 @@ export default function Navbar() {
                       },
                     }}
                   />
-
                   <span className="relative flex items-center gap-2 z-10">
                     Let&apos;s Talk
                     <motion.span
@@ -296,7 +272,6 @@ export default function Navbar() {
               </a>
             </motion.div>
 
-            {/* Mobile Menu Button */}
             <motion.button
               className="lg:hidden p-2 text-gray-300 hover:text-cyan-400 transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -332,7 +307,6 @@ export default function Navbar() {
         </motion.div>
       </motion.nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -348,7 +322,6 @@ export default function Navbar() {
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
             >
-              {/* Top glow */}
               <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
 
               <div className="p-6 space-y-2">
@@ -370,20 +343,17 @@ export default function Navbar() {
                         className="relative px-5 py-3.5 text-base font-medium text-gray-300 rounded-lg overflow-hidden"
                         whileTap={{ scale: 0.98 }}
                       >
-                        {/* Hover background */}
                         <motion.div
                           className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0"
                           whileHover={{ opacity: 1 }}
                           transition={{ duration: 0.2 }}
                         />
-
                         <span className="relative">{item.label}</span>
                       </motion.div>
                     </Link>
                   </motion.div>
                 ))}
 
-                {/* Mobile CTA */}
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -401,9 +371,8 @@ export default function Navbar() {
                         const elementPosition =
                           contactSection.getBoundingClientRect().top +
                           window.pageYOffset;
-                        const offsetPosition = elementPosition - navHeight;
                         window.scrollTo({
-                          top: offsetPosition,
+                          top: elementPosition - navHeight,
                           behavior: "smooth",
                         });
                       }
@@ -413,12 +382,8 @@ export default function Navbar() {
                       className="relative px-5 py-3.5 text-base font-semibold text-white rounded-lg text-center overflow-hidden"
                       whileTap={{ scale: 0.98 }}
                     >
-                      {/* Gradient background */}
                       <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600" />
-
-                      {/* Glow */}
                       <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg blur-lg opacity-30 -z-10" />
-
                       <span className="relative">Let&apos;s Talk</span>
                     </motion.div>
                   </a>

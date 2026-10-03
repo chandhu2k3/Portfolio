@@ -2,13 +2,25 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import type { SiteSettings } from "@/lib/types";
 
-export default function ContactSection() {
+interface Props {
+  settings?: SiteSettings;
+}
+
+export default function ContactSection({ settings }: Props) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
+
+  const contactEmail = settings?.email ?? "chandrakanthr876@gmail.com";
+  const github = settings?.github;
+  const linkedin = settings?.linkedin;
+  const subtitle =
+    settings?.contactSubtitle ??
+    "Always happy to discuss product, engineering, or collaboration opportunities";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,13 +29,8 @@ export default function ContactSection() {
     try {
       const response = await fetch("https://formspree.io/f/xlgrlgqw", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          message: message,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, message }),
       });
 
       if (response.ok) {
@@ -46,28 +53,20 @@ export default function ContactSection() {
       id="contact"
       className="relative py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950 overflow-hidden"
     >
-      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
+          animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1.3, 1, 1.3],
-            opacity: [0.2, 0.4, 0.2],
-          }}
+          animate={{ scale: [1.3, 1, 1.3], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
       <div className="relative max-w-3xl mx-auto text-center z-10">
-        {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -87,14 +86,10 @@ export default function ContactSection() {
             transition={{ delay: 0.2, duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <p className="text-gray-300 text-sm mb-10 font-light">
-              Always happy to discuss product, engineering, or collaboration
-              opportunities
-            </p>
+            <p className="text-gray-300 text-sm mb-10 font-light">{subtitle}</p>
           </motion.div>
         </motion.div>
 
-        {/* Contact Links */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -103,7 +98,7 @@ export default function ContactSection() {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10"
         >
           <motion.a
-            href="mailto:chandrakanthr876@gmail.com"
+            href={`mailto:${contactEmail}`}
             whileHover={{ scale: 1.03, y: -3 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -112,33 +107,38 @@ export default function ContactSection() {
             <span className="text-lg">✉️</span>
             <span>Email</span>
           </motion.a>
-          <motion.a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.03, y: -3 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            className="flex items-center gap-2 px-5 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all font-medium text-sm backdrop-blur-sm"
-          >
-            <span className="text-lg">💻</span>
-            <span>GitHub</span>
-          </motion.a>
-          <motion.a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.03, y: -3 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            className="flex items-center gap-2 px-5 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all font-medium text-sm backdrop-blur-sm"
-          >
-            <span className="text-lg">🔗</span>
-            <span>LinkedIn</span>
-          </motion.a>
+
+          {github && (
+            <motion.a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03, y: -3 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="flex items-center gap-2 px-5 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all font-medium text-sm backdrop-blur-sm"
+            >
+              <span className="text-lg">💻</span>
+              <span>GitHub</span>
+            </motion.a>
+          )}
+
+          {linkedin && (
+            <motion.a
+              href={linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.03, y: -3 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className="flex items-center gap-2 px-5 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all font-medium text-sm backdrop-blur-sm"
+            >
+              <span className="text-lg">🔗</span>
+              <span>LinkedIn</span>
+            </motion.a>
+          )}
         </motion.div>
 
-        {/* Or Divider */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -151,7 +151,6 @@ export default function ContactSection() {
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent" />
         </motion.div>
 
-        {/* Contact Form */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -193,10 +192,10 @@ export default function ContactSection() {
                 status === "sending"
                   ? "bg-gray-600 cursor-not-allowed"
                   : status === "success"
-                  ? "bg-green-600 hover:bg-green-700"
-                  : status === "error"
-                  ? "bg-red-600 hover:bg-red-700"
-                  : "bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-700 hover:shadow-xl hover:shadow-cyan-500/50"
+                    ? "bg-green-600 hover:bg-green-700"
+                    : status === "error"
+                      ? "bg-red-600 hover:bg-red-700"
+                      : "bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-700 hover:shadow-xl hover:shadow-cyan-500/50"
               } text-white`}
             >
               {status === "sending" && "Sending..."}

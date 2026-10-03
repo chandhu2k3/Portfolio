@@ -1,334 +1,139 @@
 # Chandra's Portfolio Website
 
-A modern, professional portfolio website showcasing the journey from Software Engineer to Product Manager.
+A modern, CMS-backed portfolio showcasing the journey from Software Engineer to Product Manager — powered by **Next.js**, **Sanity CMS**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**.
 
 ## Overview
 
-This is a **Next.js 14** portfolio built with **TypeScript**, **Tailwind CSS**, and **Framer Motion** animations. It presents:
+Visitors see a polished public portfolio. You log in to `/studio` and edit everything — case studies, decks, projects, journey, skills, contact — **without touching code**.
 
 - 🎯 Developer → PM transformation journey
-- 📊 Product case studies with strategic insights
+- 📊 Product case studies with full narratives + PDF decks
 - 💻 Engineering projects & technical expertise
 - 🚀 Professional experience & timeline
+- ✍️ **Sanity CMS** — edit content in a visual studio
 - ⚡ Smooth, modern UI with animations
 - 📱 Fully responsive design
 - 🔍 SEO optimized
 
 ## Tech Stack
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Hosting**: Ready for Vercel deployment
+| Layer | Tech |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| CMS | Sanity (`3ksax8m8` / `production`) |
+| Styling | Tailwind CSS 4 |
+| Animations | Framer Motion |
+| Hosting | Vercel-ready |
 
 ## Project Structure
 
 ```
-src/
-├── app/                    # Next.js pages & routes
-│   ├── layout.tsx         # Root layout with Navbar
-│   ├── page.tsx           # Homepage
-│   ├── journey/           # Journey page
-│   ├── projects/          # Projects page
-│   ├── case-studies/      # Case studies page
-│   └── contact/           # Contact page
-├── components/            # Reusable React components
-│   ├── Navbar.tsx
-│   ├── HeroSection.tsx
-│   ├── AboutSection.tsx
-│   ├── JourneyTimeline.tsx
-│   ├── ProjectsGrid.tsx
-│   ├── CaseStudiesGrid.tsx
-│   └── ContactSection.tsx
-├── data/                  # Static content & configuration
-│   ├── journey.ts
-│   ├── projects.ts
-│   ├── caseStudies.ts
-│   └── skills.ts
-└── styles/               # Global styles
+├── sanity.config.ts           # Sanity Studio config
+├── sanity/schemas/            # CMS content models
+│   ├── siteSettings.ts        # Name, hero, contact, about
+│   ├── caseStudy.ts           # Case studies + deck PDFs
+│   ├── project.ts             # Engineering projects
+│   ├── journeyItem.ts         # Timeline entries
+│   └── skillCategory.ts       # Skills groups
+├── scripts/seed.mjs           # Seed CMS with existing content
+├── src/
+│   ├── app/
+│   │   ├── studio/            # /studio — login-gated CMS editor
+│   │   ├── case-studies/      # Listing + [slug] detail pages
+│   │   ├── projects/
+│   │   ├── journey/
+│   │   └── contact/
+│   ├── components/            # UI (Navbar, Hero, Cards, Footer…)
+│   ├── data/                  # Local fallback content
+│   └── lib/
+│       ├── sanity.ts          # Client + image helpers
+│       ├── queries.ts         # GROQ queries
+│       ├── content.ts         # Fetchers (CMS → fallback)
+│       └── types.ts           # Shared types
+└── public/images/             # Static assets
 ```
-
-## Key Features
-
-### 1. Navbar
-
-- Sticky navigation with blur effect on scroll
-- Mobile-responsive hamburger menu
-- Smooth scroll links to sections
-- Gradient branding
-
-### 2. Hero Section
-
-- Eye-catching headline with gradient text
-- Clear value proposition
-- Call-to-action buttons
-- Animated scroll indicator
-
-### 3. About Section
-
-- Personal story & background
-- Skills organized by category
-- Professional strengths highlight
-
-### 4. Journey Timeline
-
-- Developer to PM transformation timeline
-- Visual timeline with icons
-- Interactive animations
-- 7 key milestone events
-
-### 5. Projects Grid
-
-- 6 featured projects
-- Tech stack badges
-- Links to GitHub & Live demos
-- Hover effects
-
-### 6. Case Studies
-
-- 6 detailed product case studies
-- Category tags (Design Thinking, Product Strategy, Research, UX/UI, AI)
-- Key highlights & outcomes
-- Links to full case studies
-
-### 7. Contact Section
-
-- Email, GitHub, LinkedIn links
-- Contact form (frontend ready)
-- Professional dark theme
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js 18+ and npm/yarn
-
-### Installation
-
 ```bash
-# Install dependencies
 npm install
-
-# Run development server with hot-reload
 npm run dev
 ```
 
-Visit `http://localhost:3000` to see the portfolio.
+Visit `http://localhost:3000`.
 
-### Development Commands
+### Scripts
 
-```bash
-# Standard development mode (recommended)
-npm run dev
+| Command | Purpose |
+|---|---|
+| `npm run dev` | Dev server (Turbopack hot-reload) |
+| `npm run build` | Production build |
+| `npm start` | Run production build |
+| `npm run lint` | ESLint |
+| `npm run seed` | Push existing content into Sanity |
 
-# Development with nodemon file watcher
-npm run dev:watch
+## Editing Content (CMS)
 
-# Build for production
-npm run build
+1. Go to `http://localhost:3000/studio` (or your deployed `/studio`)
+2. Log in with your Sanity account
+3. Edit any document type:
+   - **Site Settings** — name, hero text, email, socials, about, footer
+   - **Case Study** — title, narrative, tags, **upload deck PDF**, cover image
+   - **Project** — title, summary, tech stack, links, cover image
+   - **Journey Item** — timeline milestones
+   - **Skill Category** — skills groups
+4. **Publish** → the site updates automatically (revalidate 60s)
 
-# Run production build
-npm start
+### First-time seed (optional)
 
-# Check for linting errors
-npm run lint
+If you want your current content in Sanity:
+
+1. Create a write token: [sanity.io/manage](https://www.sanity.io/manage) → project → API → Tokens
+2. Add to `.env.local`:
+   ```
+   SANITY_API_TOKEN=your_token_here
+   ```
+3. Run:
+   ```bash
+   npm run seed
+   ```
+
+The site also works **without** Sanity — it falls back to local files in `src/data/`.
+
+## Case Study Detail Pages
+
+Each case study gets `/case-studies/[slug]` with:
+
+- Problem → Research → Solution → Impact narrative
+- Key highlights
+- **Inline PDF viewer** (uploaded deck)
+- **Download Deck** button
+- Optional external link
+
+Add a deck in Studio → Case Study → **Case Study Deck (PDF)** → Publish.
+
+## Env Vars (`.env.local`)
+
 ```
-
-## Hot-Reload & Auto-Restart
-
-The project is configured for automatic restart on file changes:
-
-### **Option 1: Next.js Built-in Hot-Reload (Default)**
-
-```bash
-npm run dev
-```
-
-- Uses Next.js's built-in hot-reload with Turbopack
-- Fastest recompilation
-- **Recommended for most development**
-- Automatically detects changes in `src/` directory
-
-### **Option 2: Nodemon Watcher**
-
-```bash
-npm run dev:watch
-```
-
-- Uses nodemon for explicit file watching
-- Watches: TypeScript, TSX, JSON, and CSS files
-- Useful if hot-reload isn't working as expected
-- Automatically restarts server on any file changes in `src/`
-
-**Configuration Files:**
-
-- `nodemon.json` - Nodemon configuration
-- `.env.local` - Environment variables
-
-## Development
-
-### Adding New Projects
-
-Edit `src/data/projects.ts`:
-
-```typescript
-{
-  id: "my-project",
-  title: "Project Name",
-  summary: "Brief description",
-  techStack: ["React", "TypeScript"],
-  github: "https://github.com/...",
-  liveDemo: "https://...",
-}
-```
-
-### Adding New Case Studies
-
-Edit `src/data/caseStudies.ts`:
-
-```typescript
-{
-  id: "my-case-study",
-  title: "Case Study Name",
-  category: "Product Strategy",
-  summary: "Summary",
-  highlights: ["Point 1", "Point 2"],
-}
-```
-
-### Updating Skills
-
-Edit `src/data/skills.ts` to add/remove skill categories and items.
-
-### Updating Journey Timeline
-
-Edit `src/data/journey.ts` to modify milestone events.
-
-## Customization
-
-### Colors & Branding
-
-- Update Tailwind config in `tailwind.config.ts`
-- Modify gradient colors in components
-- Change gradient colors from `from-blue-600 to-purple-600`
-
-### Fonts
-
-- Fonts are configured in `src/app/layout.tsx`
-- Uses `Geist` fonts from Google Fonts
-
-### Contact Information
-
-- Update email in `src/components/ContactSection.tsx`
-- Update GitHub/LinkedIn URLs
-- Add form backend integration as needed
-
-## Building for Production
-
-```bash
-# Build the project
-npm run build
-
-# Start production server
-npm run start
+NEXT_PUBLIC_SANITY_PROJECT_ID=3ksax8m8
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_TOKEN=...          # only needed for npm run seed
 ```
 
 ## Deployment
 
-### Deploy to Vercel (Recommended)
+Deploy to **Vercel**:
 
-1. Push repository to GitHub
-2. Visit [vercel.com](https://vercel.com)
-3. Import your GitHub repository
-4. Vercel automatically detects Next.js and deploys
-
-```bash
-# Deploy from CLI
-npm install -g vercel
-vercel
-```
-
-### Deploy to Netlify
-
-```bash
-# Build static files
-npm run build
-
-# Deploy the `.next` folder to Netlify
-```
-
-## Performance
-
-- **Lighthouse Score Goal**: 90+
-- **Load Time Target**: < 2 seconds
-- **Optimizations**:
-  - Image optimization
-  - Code splitting
-  - CSS-in-JS (Tailwind)
-  - Server-side rendering (Next.js)
-  - Static generation where possible
-
-## SEO
-
-- ✅ Meta tags for all pages
-- ✅ Open Graph tags for social sharing
-- ✅ Mobile-friendly responsive design
-- ✅ Fast page load times
-- ✅ Semantic HTML structure
-- ✅ Ready for sitemap generation
-
-## Future Enhancements (V2)
-
-- [ ] Blog system with MDX
-- [ ] Detailed case study pages
-- [ ] Dark mode toggle
-- [ ] CMS integration (Sanity/Notion)
-- [ ] Analytics dashboard
-- [ ] Custom domain setup
-- [ ] Newsletter signup
-
-## Scripts
-
-```bash
-npm run dev        # ⚡ Start development server with hot-reload (Turbopack)
-npm run dev:watch  # 👀 Alternative: Start with nodemon file watcher
-npm run build      # 🏗️  Build for production
-npm run start      # 🚀 Start production server
-npm run lint       # 🔍 Check for linting errors
-```
-
-### What Each Script Does:
-
-| Command             | Purpose                                             | Use When                        |
-| ------------------- | --------------------------------------------------- | ------------------------------- |
-| `npm run dev`       | Starts Next.js dev server with Turbopack hot-reload | Daily development (recommended) |
-| `npm run dev:watch` | Starts server with nodemon file watcher             | If hot-reload isn't working     |
-| `npm run build`     | Creates optimized production build                  | Before deploying                |
-| `npm run start`     | Runs production build locally                       | Testing production build        |
-| `npm run lint`      | Checks code quality with ESLint                     | Code review before commit       |
-
-## File Watching & Auto-Reload
-
-**The project automatically restarts when you change files:**
-
-- ✅ **Watches**: `.ts`, `.tsx`, `.json`, `.css` files in `src/` directory
-- ✅ **Ignores**: `node_modules`, `.next`, `.git`, `public`
-- ✅ **Delay**: 500ms between file change and restart (prevents double-restarts)
-
-**How it works:**
-
-1. You save a file
-2. Server automatically detects the change
-3. Project restarts within 500ms
-4. Browser auto-refreshes (hot-reload)
+1. Push to GitHub
+2. Import at [vercel.com](https://vercel.com)
+3. Add the env vars above
+4. Deploy
 
 ## Contact
 
-- 📧 Email: chandra@example.com
-- 🔗 LinkedIn: [linkedin.com/in/chandra](https://linkedin.com)
-- 💻 GitHub: [github.com/chandra](https://github.com)
+- 📧 Email: chandrakanthr876@gmail.com
 
 ---
 
-© 2025 Chandra Kanth Reddy. All rights reserved.
+© 2026 Nagam Chandrakanth Reddy. All rights reserved.

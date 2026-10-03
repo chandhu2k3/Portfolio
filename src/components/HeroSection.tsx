@@ -1,14 +1,31 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { SiteSettings } from "@/lib/types";
 
-export default function HeroSection() {
+interface Props {
+  settings?: SiteSettings;
+}
+
+export default function HeroSection({ settings }: Props) {
+  const name = settings?.name ?? "Nagam Chandrakanth Reddy";
+  const role =
+    settings?.role ?? "Product Design & Management | IIIT Hyderabad";
+  const headline1 = settings?.heroHeadline1 ?? "Product-Focused Engineer";
+  const headline2 = settings?.heroHeadline2 ?? "Bridging";
+  const headline3 = settings?.heroHeadline3 ?? "Tech & Product Thinking";
+  const subtitle =
+    settings?.heroSubtitle ??
+    "I combine a strong engineering foundation with structured product thinking to identify user problems, validate solutions, and build meaningful digital experiences. My focus lies in understanding user needs, shaping product strategy, and translating insights into impactful products.";
+  const resumeUrl = settings?.resumeUrl ?? "/Chandrakanth_Resume_PM.pdf";
+  const profileImage =
+    (settings?.profileImage as string) ?? "/images/chanduformal.jpg";
+
   return (
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 overflow-hidden"
     >
-      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
@@ -30,7 +47,6 @@ export default function HeroSection() {
 
       <div className="relative max-w-5xl mx-auto z-10">
         <div className="flex flex-col items-center lg:grid lg:grid-cols-[auto_auto] gap-8 lg:gap-12 lg:items-center lg:justify-center">
-          {/* Profile Photo - Left Side */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -38,23 +54,22 @@ export default function HeroSection() {
             className="flex flex-col items-center gap-3 lg:gap-4"
           >
             <div className="relative w-32 h-32 sm:w-44 sm:h-44 lg:w-56 lg:h-56 rounded-full overflow-hidden bg-gradient-to-br from-slate-800/50 via-slate-900/50 to-blue-950/50 backdrop-blur-sm border-2 lg:border-4 border-cyan-500/30 shadow-2xl">
-              {/* Subtle gradient overlay to blend with background */}
               <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-transparent to-blue-950/30 z-10 pointer-events-none" />
               <img
-                src="/images/chanduformal.jpg"
-                alt="Chandra Kanth"
+                src={profileImage}
+                alt={name}
                 className="w-full h-full object-cover opacity-95"
               />
             </div>
             <h2 className="text-sm sm:text-base lg:text-xl font-bold text-white tracking-tight text-center">
-              Nagam Chandrakanth Reddy
+              {name}
             </h2>
-            <h4 className="text-xs lg:text-sm font-medium text-gray-300 tracking-tight text-center">Product Design & Management | IIIT Hyderabad</h4>
+            <h4 className="text-xs lg:text-sm font-medium text-gray-300 tracking-tight text-center">
+              {role}
+            </h4>
           </motion.div>
 
-          {/* Main Content - Right Side */}
           <div className="text-center lg:text-left w-full max-w-xl">
-            {/* Main Headline */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -62,36 +77,30 @@ export default function HeroSection() {
             >
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-5 leading-tight tracking-tight">
                 <span className="block text-white drop-shadow-lg">
-                  Product-Focused Engineer
+                  {headline1}
                 </span>
                 <span className="block text-white drop-shadow-lg">
-                  Bridging
+                  {headline2}
                 </span>
                 <motion.span
                   className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  Tech &amp; Product Thinking
+                  {headline3}
                 </motion.span>
               </h1>
             </motion.div>
 
-            {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
               className="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed font-light"
             >
-             I combine a strong engineering foundation with structured product thinking to identify .{" "}
-              <span className="text-cyan-400 font-medium">
-                user problems, validate solutions, and build meaningful digital experiences 
-              </span>{" "}
-              . My focus lies in understanding  <span className="text-cyan-400 font-medium"> user needs, shaping product strategy, and translating insights into impactful products .</span>
+              {subtitle}
             </motion.p>
 
-            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -107,17 +116,14 @@ export default function HeroSection() {
                   href="#case-studies"
                   onClick={(e) => {
                     e.preventDefault();
-                    const caseStudiesSection = document.getElementById("case-studies");
-                    if (caseStudiesSection) {
+                    const section = document.getElementById("case-studies");
+                    if (section) {
                       const navHeight = 100;
-                      const elementPosition =
-                        caseStudiesSection.getBoundingClientRect().top +
-                        window.pageYOffset;
-                      const offsetPosition = elementPosition - navHeight;
-                      window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth",
-                      });
+                      const top =
+                        section.getBoundingClientRect().top +
+                        window.pageYOffset -
+                        navHeight;
+                      window.scrollTo({ top, behavior: "smooth" });
                     }
                   }}
                   className="group relative px-6 py-2.5 bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-700 text-white rounded-xl font-semibold text-sm shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/60 transition-all overflow-hidden"
@@ -129,20 +135,23 @@ export default function HeroSection() {
                   />
                 </a>
               </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05, y: -5 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <a
-                  href="/Chandrakanth_Resume_PM.pdf"
-                
-                  download
-                  className="px-6 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-xl font-semibold text-sm hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all backdrop-blur-sm"
+
+              {resumeUrl && (
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  Download Resume
-                </a>
-              </motion.div>
+                  <a
+                    href={resumeUrl}
+                    download
+                    className="px-6 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-xl font-semibold text-sm hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all backdrop-blur-sm"
+                  >
+                    Download Resume
+                  </a>
+                </motion.div>
+              )}
+
               <motion.div
                 whileHover={{ scale: 1.05, y: -5 }}
                 whileTap={{ scale: 0.95 }}
@@ -152,17 +161,14 @@ export default function HeroSection() {
                   href="#contact"
                   onClick={(e) => {
                     e.preventDefault();
-                    const contactSection = document.getElementById("contact");
-                    if (contactSection) {
+                    const section = document.getElementById("contact");
+                    if (section) {
                       const navHeight = 100;
-                      const elementPosition =
-                        contactSection.getBoundingClientRect().top +
-                        window.pageYOffset;
-                      const offsetPosition = elementPosition - navHeight;
-                      window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth",
-                      });
+                      const top =
+                        section.getBoundingClientRect().top +
+                        window.pageYOffset -
+                        navHeight;
+                      window.scrollTo({ top, behavior: "smooth" });
                     }
                   }}
                   className="px-6 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-xl font-semibold text-sm hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all backdrop-blur-sm"
@@ -174,7 +180,6 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -183,8 +188,9 @@ export default function HeroSection() {
         >
           <motion.button
             onClick={() => {
-              const aboutSection = document.getElementById("about");
-              aboutSection?.scrollIntoView({ behavior: "smooth" });
+              document
+                .getElementById("about")
+                ?.scrollIntoView({ behavior: "smooth" });
             }}
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
