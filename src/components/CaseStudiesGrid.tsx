@@ -22,7 +22,7 @@ export default function CaseStudiesGrid({ caseStudies = [] }: Props) {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto z-10">
+      <div className="relative max-w-7xl xl:max-w-[90rem] mx-auto z-10 px-2">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ export default function CaseStudiesGrid({ caseStudies = [] }: Props) {
           />
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
           {visible.map((caseStudy, index) => (
             <CaseStudyCard
               key={caseStudy.id}

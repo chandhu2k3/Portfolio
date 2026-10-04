@@ -24,7 +24,7 @@ export default function CaseStudiesPageClient({ caseStudies = [] }: Props) {
         </Link>
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl xl:max-w-[90rem] mx-auto px-2">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -40,7 +40,7 @@ export default function CaseStudiesPageClient({ caseStudies = [] }: Props) {
           <div className="w-24 h-1.5 bg-linear-to-r from-cyan-400 via-blue-500 to-purple-500 mx-auto mt-4 rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {caseStudies.map((caseStudy, index) => (
             <CaseStudyCard
               key={caseStudy.id}
