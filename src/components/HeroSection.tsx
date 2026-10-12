@@ -24,25 +24,11 @@ export default function HeroSection({ settings }: Props) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#0a0a0a] overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-black/[0.02] dark:bg-white/[0.03] rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-black/[0.015] dark:bg-white/[0.02] rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-5xl mx-auto z-10">
@@ -53,18 +39,18 @@ export default function HeroSection({ settings }: Props) {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex flex-col items-center gap-3 lg:gap-4"
           >
-            <div className="relative w-32 h-32 sm:w-44 sm:h-44 lg:w-56 lg:h-56 rounded-full overflow-hidden bg-gradient-to-br from-slate-800/50 via-slate-900/50 to-blue-950/50 backdrop-blur-sm border-2 lg:border-4 border-cyan-500/30 shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-transparent to-blue-950/30 z-10 pointer-events-none" />
+            <div className="relative w-32 h-32 sm:w-44 sm:h-44 lg:w-56 lg:h-56 rounded-full overflow-hidden bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-black/10 dark:border-white/15 shadow-lg">
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10 dark:to-black/20 z-10 pointer-events-none" />
               <img
                 src={profileImage}
                 alt={name}
-                className="w-full h-full object-cover opacity-95"
+                className="w-full h-full object-cover"
               />
             </div>
-            <h2 className="text-sm sm:text-base lg:text-xl font-bold text-white tracking-tight text-center">
+            <h2 className="text-sm sm:text-base lg:text-xl font-bold text-black dark:text-white tracking-tight text-center">
               {name}
             </h2>
-            <h4 className="text-xs lg:text-sm font-medium text-gray-300 tracking-tight text-center">
+            <h4 className="text-xs lg:text-sm font-medium text-black/55 dark:text-white/55 tracking-tight text-center">
               {role}
             </h4>
           </motion.div>
@@ -76,14 +62,10 @@ export default function HeroSection({ settings }: Props) {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-5 leading-tight tracking-tight">
-                <span className="block text-white drop-shadow-lg">
-                  {headline1}
-                </span>
-                <span className="block text-white drop-shadow-lg">
-                  {headline2}
-                </span>
+                <span className="block text-black dark:text-white">{headline1}</span>
+                <span className="block text-black/50 dark:text-white/50">{headline2}</span>
                 <motion.span
-                  className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient"
+                  className="block text-black dark:text-white"
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -96,7 +78,7 @@ export default function HeroSection({ settings }: Props) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-              className="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed font-light"
+              className="text-base sm:text-lg text-black/60 dark:text-white/60 mb-8 leading-relaxed font-light"
             >
               {subtitle}
             </motion.p>
@@ -126,13 +108,9 @@ export default function HeroSection({ settings }: Props) {
                       window.scrollTo({ top, behavior: "smooth" });
                     }
                   }}
-                  className="group relative px-6 py-2.5 bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-700 text-white rounded-xl font-semibold text-sm shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/60 transition-all overflow-hidden"
+                  className="group relative px-6 py-2.5 bg-black text-white dark:bg-white dark:text-black rounded-xl font-semibold text-sm shadow-lg shadow-black/15 dark:shadow-white/10 hover:shadow-black/25 transition-all overflow-hidden"
                 >
                   <span className="relative z-10">Explore Case Studies</span>
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"
-                    initial={false}
-                  />
                 </a>
               </motion.div>
 
@@ -145,7 +123,7 @@ export default function HeroSection({ settings }: Props) {
                   <a
                     href={resumeUrl}
                     download
-                    className="px-6 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-xl font-semibold text-sm hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all backdrop-blur-sm"
+                    className="px-6 py-2.5 border-2 border-black/25 dark:border-white/30 text-black dark:text-white rounded-xl font-semibold text-sm hover:bg-black/5 dark:hover:bg-white/10 hover:border-black/40 transition-all backdrop-blur-sm"
                   >
                     Download Resume
                   </a>
@@ -171,7 +149,7 @@ export default function HeroSection({ settings }: Props) {
                       window.scrollTo({ top, behavior: "smooth" });
                     }
                   }}
-                  className="px-6 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-xl font-semibold text-sm hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all backdrop-blur-sm"
+                  className="px-6 py-2.5 border-2 border-black/25 dark:border-white/30 text-black dark:text-white rounded-xl font-semibold text-sm hover:bg-black/5 dark:hover:bg-white/10 hover:border-black/40 transition-all backdrop-blur-sm"
                 >
                   Contact Me
                 </a>
@@ -196,11 +174,11 @@ export default function HeroSection({ settings }: Props) {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="flex flex-col items-center gap-2 cursor-pointer bg-transparent border-none"
           >
-            <span className="text-sm text-gray-400 font-medium tracking-wider uppercase">
+            <span className="text-sm text-black/40 dark:text-white/40 font-medium tracking-wider uppercase">
               Scroll Down
             </span>
             <svg
-              className="w-6 h-6 text-cyan-400"
+              className="w-6 h-6 text-black/50 dark:text-white/50"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

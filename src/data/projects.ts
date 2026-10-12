@@ -49,4 +49,40 @@ export const projectsData: Project[] = [
     liveDemo: "",
     image: "/images/liveratex.png",
   },
+  {
+    id: "msmp-multi-tenant",
+    title: "Multi-School Management Platform (MSMP)",
+    summary:
+      "Multi-tenant school management system design with C4 architecture, ADRs, JWT auth + RBAC for 4 roles, and monolith vs microservices evaluation across latency, throughput, scalability and consistency.",
+    techStack: [
+      "Java",
+      "Spring Boot",
+      "Spring Security",
+      "Next.js",
+      "PostgreSQL",
+      "Redis",
+      "Hibernate Search",
+      "JWT",
+    ],
+    github: "https://github.com/chandhu2k3/msmp",
+    liveDemo: "",
+    image: "/images/project-placeholder.jpg",
+  },
+  {
+    id: "rti-assistant",
+    title: "RTI Assistant — RAG-Based Govt Info Assistant",
+    summary:
+      "Grounded RAG assistant over 88 pages of RTI documents (539 chunks) with hierarchical chunking, MiniLM + ChromaDB, query condensation, MMR retrieval, Hindi generation and source attribution.",
+    techStack: [
+      "Python",
+      "LangChain",
+      "ChromaDB",
+      "Sentence Transformers",
+      "Groq",
+      "Streamlit",
+    ],
+    github: "https://github.com/chandhu2k3/RTI_Assistant_RAG",
+    liveDemo: "",
+    image: "/images/project-placeholder.jpg",
+  },
 ];

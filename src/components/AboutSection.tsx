@@ -16,10 +16,10 @@ export default function AboutSection({ settings, skills = [] }: Props) {
   return (
     <section
       id="about"
-      className="relative py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 overflow-hidden"
+      className="relative py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#fafafa] dark:bg-[#0a0a0a] overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-black/[0.02] dark:bg-white/[0.02] rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-6xl mx-auto z-10">
@@ -31,14 +31,14 @@ export default function AboutSection({ settings, skills = [] }: Props) {
           className="text-center mb-8"
         >
           <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-lg"
-            whileHover={{ scale: 1.03, letterSpacing: "0.05em" }}
+            className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white"
+            whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
           >
             About Me
           </motion.h2>
           <motion.div
-            className="w-24 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 mx-auto rounded-full shadow-lg shadow-cyan-500/50"
+            className="w-24 h-1.5 bg-black/80 dark:bg-white/80 mx-auto rounded-full"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             transition={{ delay: 0.2, duration: 0.6, type: "spring" }}
@@ -54,13 +54,13 @@ export default function AboutSection({ settings, skills = [] }: Props) {
             transition={{ duration: 0.7, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold mb-5 text-white tracking-tight">
+            <h3 className="text-2xl font-bold mb-5 text-black dark:text-white tracking-tight">
               {heading}
             </h3>
             {paragraphs.map((p, i) => (
               <p
                 key={i}
-                className="text-gray-300 text-base mb-5 leading-relaxed last:mb-0"
+                className="text-black/60 dark:text-white/60 text-base mb-5 leading-relaxed last:mb-0"
               >
                 {p}
               </p>
@@ -73,11 +73,10 @@ export default function AboutSection({ settings, skills = [] }: Props) {
             transition={{ duration: 0.7, ease: "easeOut" }}
             viewport={{ once: true }}
             whileHover={{ scale: 1.02, y: -5 }}
-            className="relative bg-gradient-to-br from-blue-900/30 via-slate-800/30 to-slate-900/30 backdrop-blur-xl rounded-2xl p-8 border border-cyan-500/30 shadow-2xl shadow-cyan-500/10"
+            className="relative bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl rounded-2xl p-8 border border-black/10 dark:border-white/10 shadow-lg shadow-black/5 dark:shadow-black/40"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-2xl" />
             <div className="relative z-10">
-              <h3 className="text-xl font-semibold mb-6 text-cyan-400 tracking-tight">
+              <h3 className="text-xl font-semibold mb-6 text-black dark:text-white tracking-tight">
                 What I Bring to Product Teams
               </h3>
               <div className="space-y-5">
@@ -88,10 +87,10 @@ export default function AboutSection({ settings, skills = [] }: Props) {
                     transition={{ type: "spring", stiffness: 300 }}
                     className="flex items-start gap-3"
                   >
-                    <span className="text-xl mt-0.5 shrink-0">
+                    <span className="text-xl mt-0.5 shrink-0 opacity-60">
                       {item.icon ?? "→"}
                     </span>
-                    <p className="font-medium text-white text-sm leading-relaxed">
+                    <p className="font-medium text-black/85 dark:text-white/85 text-sm leading-relaxed">
                       {item.text}
                     </p>
                   </motion.div>
@@ -107,7 +106,7 @@ export default function AboutSection({ settings, skills = [] }: Props) {
           transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          <h3 className="text-3xl font-bold mb-6 md:mb-12 text-center text-white tracking-tight">
+          <h3 className="text-3xl font-bold mb-6 md:mb-12 text-center text-black dark:text-white tracking-tight">
             Skills & Tools
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -123,11 +122,10 @@ export default function AboutSection({ settings, skills = [] }: Props) {
                 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8, scale: 1.02 }}
-                className="group relative bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-900/60 backdrop-blur-sm border border-cyan-500/20 rounded-xl p-6 hover:border-cyan-400/40 hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-300"
+                className="group relative bg-white/70 dark:bg-white/[0.03] backdrop-blur-sm border border-black/10 dark:border-white/10 rounded-xl p-6 hover:border-black/25 dark:hover:border-white/25 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-white/5 transition-all duration-300"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-500/0 group-hover:from-cyan-500/5 group-hover:to-blue-500/5 rounded-xl transition-all duration-300" />
                 <div className="relative z-10">
-                  <h4 className="font-bold text-cyan-400 mb-5 text-lg tracking-tight">
+                  <h4 className="font-bold text-black dark:text-white mb-5 text-lg tracking-tight">
                     {skillGroup.category}
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -135,7 +133,7 @@ export default function AboutSection({ settings, skills = [] }: Props) {
                       <motion.span
                         key={skill}
                         whileHover={{ scale: 1.05, y: -2 }}
-                        className="inline-block px-3 py-1.5 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 text-sm font-medium rounded-lg border border-cyan-500/30 hover:border-cyan-400/50 hover:bg-cyan-500/30 transition-all cursor-default"
+                        className="inline-block px-3 py-1.5 bg-black/[0.05] dark:bg-white/5 text-black/80 dark:text-white/80 text-sm font-medium rounded-lg border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 hover:bg-black/10 dark:hover:bg-white/10 transition-all cursor-default"
                       >
                         {skill}
                       </motion.span>

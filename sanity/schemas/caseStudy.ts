@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 
 export const caseStudy = defineType({
   name: "caseStudy",
@@ -50,9 +51,19 @@ export const caseStudy = defineType({
     defineField({ name: "coverImage", title: "Cover Image", type: "image", options: { hotspot: true } }),
     defineField({ name: "externalLink", title: "External Link (optional)", type: "url" }),
     defineField({ name: "featured", title: "Featured on Homepage", type: "boolean", initialValue: true }),
-    defineField({ name: "order", title: "Sort Order", type: "number", initialValue: 0 }),
+    defineField({
+      name: "order",
+      title: "Sort Order (legacy — use drag-reorder instead)",
+      type: "number",
+      initialValue: 0,
+      description: "Optional fallback. Drag to reorder in the 'Case Studies in order' list instead.",
+    }),
+    orderRankField({ type: "caseStudy" }),
   ],
-  orderings: [{ title: "Sort Order", name: "orderAsc", by: [{ field: "order", direction: "asc" }] }],
+  orderings: [
+    orderRankOrdering,
+    { title: "Sort Order", name: "orderAsc", by: [{ field: "order", direction: "asc" }] },
+  ],
   preview: {
     select: { title: "title", subtitle: "subtitle", media: "coverImage" },
   },

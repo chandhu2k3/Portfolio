@@ -12,7 +12,7 @@ export const skillsQuery = `*[_type == "skillCategory"] | order(order asc, _crea
   skills
 }`;
 
-export const projectsQuery = `*[_type == "project"] | order(order asc, _createdAt asc) {
+export const projectsQuery = `*[_type == "project"] | order(orderRank asc, order asc, _createdAt asc) {
   "id": _id,
   title,
   summary,
@@ -23,7 +23,7 @@ export const projectsQuery = `*[_type == "project"] | order(order asc, _createdA
   featured
 }`;
 
-export const caseStudiesQuery = `*[_type == "caseStudy"] | order(order asc, _createdAt asc) {
+export const caseStudiesQuery = `*[_type == "caseStudy"] | order(orderRank asc, order asc, _createdAt asc) {
   "id": _id,
   "slug": slug.current,
   title,

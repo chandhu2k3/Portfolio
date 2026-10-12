@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { getSiteSettings } from "@/lib/content";
 
 const geistSans = Geist({
@@ -51,12 +52,14 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#0a0a0a]`}
         suppressHydrationWarning
       >
-        <Navbar settings={settings} />
-        {children}
-        <Footer text={settings.footerText} />
+        <ThemeProvider>
+          <Navbar settings={settings} />
+          {children}
+          <Footer text={settings.footerText} />
+        </ThemeProvider>
       </body>
     </html>
   );

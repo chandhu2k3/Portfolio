@@ -51,19 +51,11 @@ export default function ContactSection({ settings }: Props) {
   return (
     <section
       id="contact"
-      className="relative py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950 overflow-hidden"
+      className="relative py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#f5f5f5] dark:bg-[#050505] overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
-          animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
-          animate={{ scale: [1.3, 1, 1.3], opacity: [0.2, 0.4, 0.2] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-black/[0.02] dark:bg-white/[0.02] rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-black/[0.015] dark:bg-white/[0.015] rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-3xl mx-auto text-center z-10">
@@ -74,8 +66,8 @@ export default function ContactSection({ settings }: Props) {
           viewport={{ once: true }}
         >
           <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-lg"
-            whileHover={{ scale: 1.03, letterSpacing: "0.05em" }}
+            className="text-3xl md:text-4xl font-bold mb-6 text-black dark:text-white"
+            whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
           >
             Let&apos;s Connect
@@ -86,7 +78,9 @@ export default function ContactSection({ settings }: Props) {
             transition={{ delay: 0.2, duration: 0.7 }}
             viewport={{ once: true }}
           >
-            <p className="text-gray-300 text-sm mb-10 font-light">{subtitle}</p>
+            <p className="text-black/55 dark:text-white/55 text-sm mb-10 font-light">
+              {subtitle}
+            </p>
           </motion.div>
         </motion.div>
 
@@ -102,7 +96,7 @@ export default function ContactSection({ settings }: Props) {
             whileHover={{ scale: 1.03, y: -3 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            className="group flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-700 text-white rounded-lg hover:shadow-xl hover:shadow-cyan-500/50 transition-all font-medium text-sm"
+            className="group flex items-center gap-2 px-5 py-2.5 bg-black text-white dark:bg-white dark:text-black rounded-lg hover:shadow-lg hover:shadow-black/15 transition-all font-medium text-sm"
           >
             <span className="text-lg">✉️</span>
             <span>Email</span>
@@ -116,7 +110,7 @@ export default function ContactSection({ settings }: Props) {
               whileHover={{ scale: 1.03, y: -3 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="flex items-center gap-2 px-5 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all font-medium text-sm backdrop-blur-sm"
+              className="flex items-center gap-2 px-5 py-2.5 border-2 border-black/25 dark:border-white/30 text-black dark:text-white rounded-lg hover:bg-black/5 dark:hover:bg-white/10 hover:border-black/40 transition-all font-medium text-sm backdrop-blur-sm"
             >
               <span className="text-lg">💻</span>
               <span>GitHub</span>
@@ -131,7 +125,7 @@ export default function ContactSection({ settings }: Props) {
               whileHover={{ scale: 1.03, y: -3 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="flex items-center gap-2 px-5 py-2.5 border-2 border-cyan-400 text-cyan-400 rounded-lg hover:bg-cyan-400/10 hover:border-cyan-300 hover:text-cyan-300 transition-all font-medium text-sm backdrop-blur-sm"
+              className="flex items-center gap-2 px-5 py-2.5 border-2 border-black/25 dark:border-white/30 text-black dark:text-white rounded-lg hover:bg-black/5 dark:hover:bg-white/10 hover:border-black/40 transition-all font-medium text-sm backdrop-blur-sm"
             >
               <span className="text-lg">🔗</span>
               <span>LinkedIn</span>
@@ -146,9 +140,9 @@ export default function ContactSection({ settings }: Props) {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-10"
         >
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent" />
-          <span className="text-gray-400 font-medium text-sm">or</span>
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent" />
+          <div className="flex-1 h-px bg-black/15 dark:bg-white/15" />
+          <span className="text-black/40 dark:text-white/40 font-medium text-sm">or</span>
+          <div className="flex-1 h-px bg-black/15 dark:bg-white/15" />
         </motion.div>
 
         <motion.div
@@ -157,7 +151,7 @@ export default function ContactSection({ settings }: Props) {
           transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          <p className="text-gray-300 mb-5 text-sm">
+          <p className="text-black/55 dark:text-white/55 mb-5 text-sm">
             Or send me a message directly below
           </p>
           <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4">
@@ -166,7 +160,7 @@ export default function ContactSection({ settings }: Props) {
               placeholder="Your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-slate-800/60 backdrop-blur-sm text-white placeholder-gray-400 border border-cyan-500/30 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 focus:outline-none transition-all text-sm"
+              className="w-full px-4 py-3 rounded-lg bg-white/80 dark:bg-white/5 backdrop-blur-sm text-black dark:text-white placeholder-black/40 dark:placeholder-white/40 border border-black/15 dark:border-white/15 focus:border-black/40 dark:focus:border-white/40 focus:ring-2 focus:ring-black/10 dark:focus:ring-white/10 focus:outline-none transition-all text-sm"
               required
               whileFocus={{ scale: 1.01 }}
             />
@@ -175,7 +169,7 @@ export default function ContactSection({ settings }: Props) {
               rows={5}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-slate-800/60 backdrop-blur-sm text-white placeholder-gray-400 border border-cyan-500/30 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 focus:outline-none transition-all resize-none text-sm"
+              className="w-full px-4 py-3 rounded-lg bg-white/80 dark:bg-white/5 backdrop-blur-sm text-black dark:text-white placeholder-black/40 dark:placeholder-white/40 border border-black/15 dark:border-white/15 focus:border-black/40 dark:focus:border-white/40 focus:ring-2 focus:ring-black/10 dark:focus:ring-white/10 focus:outline-none transition-all resize-none text-sm"
               required
               whileFocus={{ scale: 1.01 }}
             />
@@ -190,13 +184,13 @@ export default function ContactSection({ settings }: Props) {
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
               className={`w-full px-6 py-3 rounded-lg font-medium text-sm transition-all ${
                 status === "sending"
-                  ? "bg-gray-600 cursor-not-allowed"
+                  ? "bg-black/30 dark:bg-white/30 cursor-not-allowed text-white dark:text-black"
                   : status === "success"
-                    ? "bg-green-600 hover:bg-green-700"
+                    ? "bg-black text-white dark:bg-white dark:text-black hover:bg-black/80 dark:hover:bg-white/90"
                     : status === "error"
-                      ? "bg-red-600 hover:bg-red-700"
-                      : "bg-gradient-to-r from-cyan-500 via-blue-600 to-blue-700 hover:shadow-xl hover:shadow-cyan-500/50"
-              } text-white`}
+                      ? "bg-black/70 text-white dark:bg-white/70 dark:text-black hover:bg-black/60"
+                      : "bg-black text-white dark:bg-white dark:text-black hover:shadow-lg hover:shadow-black/15"
+              }`}
             >
               {status === "sending" && "Sending..."}
               {status === "success" && "Message Sent! ✓"}

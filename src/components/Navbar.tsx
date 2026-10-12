@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import type { SiteSettings } from "@/lib/types";
+import ThemeToggle from "./ThemeToggle";
 
 interface Props {
   settings?: SiteSettings;
@@ -25,7 +26,7 @@ export default function Navbar({ settings }: Props) {
       setIsScrolled(window.scrollY > 20);
 
       if (pathname === "/") {
-        const sections = ["hero", "about", "journey", "projects", "case-studies"];
+        const sections = ["hero", "about", "case-studies", "projects"];
         let foundSection = "";
         for (const section of sections) {
           const element = document.getElementById(section);
@@ -47,6 +48,8 @@ export default function Navbar({ settings }: Props) {
         }
 
         setActiveSection(foundSection);
+      } else {
+        setActiveSection("");
       }
     };
 
@@ -58,9 +61,9 @@ export default function Navbar({ settings }: Props) {
   const navItems = [
     { label: "Hello!", href: "/", section: "hero" },
     { label: "About", href: "/#about", section: "about" },
-    { label: "Journey", href: "/#journey", section: "journey" },
-    { label: "Projects", href: "/#projects", section: "projects" },
     { label: "Case Studies", href: "/#case-studies", section: "case-studies" },
+    { label: "Projects", href: "/#projects", section: "projects" },
+    { label: "Journey", href: "/journey" },
   ];
 
   const handleNavClick = (
@@ -97,12 +100,10 @@ export default function Navbar({ settings }: Props) {
         <motion.div
           className={`relative rounded-2xl transition-all duration-500 ${
             isScrolled
-              ? "bg-slate-900/85 backdrop-blur-xl shadow-2xl shadow-black/30 border border-cyan-500/20"
-              : "bg-slate-900/75 backdrop-blur-lg border border-white/10"
+              ? "bg-white/85 dark:bg-black/85 backdrop-blur-xl shadow-lg shadow-black/5 dark:shadow-black/40 border border-black/10 dark:border-white/10"
+              : "bg-white/70 dark:bg-black/70 backdrop-blur-lg border border-black/5 dark:border-white/5"
           }`}
         >
-          <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
-
           <div className="flex items-center justify-between px-6 lg:px-8 h-14">
             <Link href="/" className="group flex items-center gap-4 shrink-0">
               <motion.div
@@ -110,19 +111,16 @@ export default function Navbar({ settings }: Props) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-500" />
-                <div className="relative w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-500 flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-base">
-                    {logoLetter}
-                  </span>
+                <div className="relative w-8 h-8 rounded-xl bg-black text-white dark:bg-white dark:text-black flex items-center justify-center">
+                  <span className="font-bold text-base">{logoLetter}</span>
                 </div>
               </motion.div>
 
               <div className="hidden sm:flex flex-col">
-                <span className="font-bold text-base text-white tracking-tight leading-none">
+                <span className="font-bold text-base text-black dark:text-white tracking-tight leading-none">
                   {shortName}
                 </span>
-                <span className="text-xs font-medium text-cyan-400/80 tracking-wider uppercase">
+                <span className="text-xs font-medium text-black/50 dark:text-white/50 tracking-wider uppercase">
                   {role}
                 </span>
               </div>
@@ -149,7 +147,7 @@ export default function Navbar({ settings }: Props) {
                         {isActive && (
                           <motion.div
                             layoutId="activeSection"
-                            className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500/25 to-blue-500/25"
+                            className="absolute inset-0 rounded-xl bg-black/[0.06] dark:bg-white/10"
                             initial={false}
                             transition={{
                               type: "spring",
@@ -161,7 +159,7 @@ export default function Navbar({ settings }: Props) {
                         )}
 
                         <motion.div
-                          className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500/15 to-blue-500/15 opacity-0"
+                          className="absolute inset-0 rounded-xl bg-black/[0.04] dark:bg-white/5 opacity-0"
                           variants={{
                             hover: {
                               opacity: 1,
@@ -174,15 +172,15 @@ export default function Navbar({ settings }: Props) {
                         <span
                           className={`relative z-10 transition-colors duration-300 ${
                             isActive
-                              ? "text-cyan-400"
-                              : "text-white group-hover:text-cyan-300"
+                              ? "text-black dark:text-white"
+                              : "text-black/60 dark:text-white/60 group-hover:text-black dark:group-hover:text-white"
                           }`}
                         >
                           {item.label}
                         </span>
 
                         <motion.div
-                          className="absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"
+                          className="absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-black dark:bg-white rounded-full"
                           initial={false}
                           animate={{ width: isActive ? "75%" : "0%" }}
                           variants={{
@@ -199,110 +197,88 @@ export default function Navbar({ settings }: Props) {
               })}
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4, duration: 0.3 }}
-              className="hidden lg:block shrink-0"
-            >
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const contactSection = document.getElementById("contact");
-                  if (contactSection) {
-                    const navHeight = 100;
-                    const elementPosition =
-                      contactSection.getBoundingClientRect().top +
-                      window.pageYOffset;
-                    window.scrollTo({
-                      top: elementPosition - navHeight,
-                      behavior: "smooth",
-                    });
-                  }
-                }}
+            <div className="hidden lg:flex items-center gap-3 shrink-0">
+              <ThemeToggle />
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4, duration: 0.3 }}
               >
-                <motion.div
-                  className="relative px-5 py-2 text-xs font-semibold text-white rounded-xl overflow-hidden cursor-pointer"
-                  whileHover="hover"
-                  whileTap={{ scale: 0.97 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const contactSection = document.getElementById("contact");
+                    if (contactSection) {
+                      const navHeight = 100;
+                      const elementPosition =
+                        contactSection.getBoundingClientRect().top +
+                        window.pageYOffset;
+                      window.scrollTo({
+                        top: elementPosition - navHeight,
+                        behavior: "smooth",
+                      });
+                    }
+                  }}
                 >
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-blue-600"
-                    variants={{
-                      hover: {
-                        scale: 1.05,
-                        transition: { duration: 0.3, ease: "easeOut" },
-                      },
-                    }}
-                  />
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full"
-                    variants={{
-                      hover: {
-                        translateX: "200%",
-                        transition: { duration: 0.8, ease: "easeInOut" },
-                      },
-                    }}
-                  />
-                  <motion.div
-                    className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl blur-xl opacity-0 -z-10"
-                    variants={{
-                      hover: {
-                        opacity: 0.7,
-                        transition: { duration: 0.3 },
-                      },
-                    }}
-                  />
-                  <span className="relative flex items-center gap-2 z-10">
-                    Let&apos;s Talk
-                    <motion.span
-                      variants={{
-                        hover: {
-                          x: 3,
-                          transition: { duration: 0.2 },
-                        },
-                      }}
-                    >
-                      →
-                    </motion.span>
-                  </span>
-                </motion.div>
-              </a>
-            </motion.div>
+                    className="relative px-5 py-2 text-xs font-semibold text-white bg-black dark:text-black dark:bg-white rounded-xl overflow-hidden cursor-pointer"
+                    whileHover="hover"
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <span className="relative flex items-center gap-2 z-10">
+                      Let&apos;s Talk
+                      <motion.span
+                        variants={{
+                          hover: {
+                            x: 3,
+                            transition: { duration: 0.2 },
+                          },
+                        }}
+                      >
+                        →
+                      </motion.span>
+                    </span>
+                  </motion.div>
+                </a>
+              </motion.div>
+            </div>
 
-            <motion.button
-              className="lg:hidden p-2 text-gray-300 hover:text-cyan-400 transition-colors"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <motion.svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                animate={isMobileMenuOpen ? { rotate: 90 } : { rotate: 0 }}
-                transition={{ duration: 0.3 }}
+            <div className="flex lg:hidden items-center gap-2">
+              <ThemeToggle />
+              <motion.button
+                className="p-2 text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white transition-colors"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
-                {isMobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </motion.svg>
-            </motion.button>
+                <motion.svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  animate={isMobileMenuOpen ? { rotate: 90 } : { rotate: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {isMobileMenuOpen ? (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  )}
+                </motion.svg>
+              </motion.button>
+            </div>
           </div>
         </motion.div>
       </motion.nav>
@@ -317,13 +293,11 @@ export default function Navbar({ settings }: Props) {
             className="fixed top-20 left-0 right-0 z-40 lg:hidden px-6"
           >
             <motion.div
-              className="bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-cyan-500/20 overflow-hidden"
+              className="bg-white/95 dark:bg-black/95 backdrop-blur-2xl rounded-2xl shadow-xl shadow-black/10 dark:shadow-black/40 border border-black/10 dark:border-white/10 overflow-hidden"
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
             >
-              <div className="absolute -top-px left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
-
               <div className="p-6 space-y-2">
                 {navItems.map((item, index) => (
                   <motion.div
@@ -340,11 +314,11 @@ export default function Navbar({ settings }: Props) {
                       }}
                     >
                       <motion.div
-                        className="relative px-5 py-3.5 text-base font-medium text-gray-300 rounded-lg overflow-hidden"
+                        className="relative px-5 py-3.5 text-base font-medium text-black/80 dark:text-white/80 rounded-lg overflow-hidden"
                         whileTap={{ scale: 0.98 }}
                       >
                         <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 opacity-0"
+                          className="absolute inset-0 bg-black/[0.04] dark:bg-white/5 opacity-0"
                           whileHover={{ opacity: 1 }}
                           transition={{ duration: 0.2 }}
                         />
@@ -379,11 +353,9 @@ export default function Navbar({ settings }: Props) {
                     }}
                   >
                     <motion.div
-                      className="relative px-5 py-3.5 text-base font-semibold text-white rounded-lg text-center overflow-hidden"
+                      className="relative px-5 py-3.5 text-base font-semibold text-white dark:text-black rounded-lg text-center overflow-hidden bg-black dark:bg-white"
                       whileTap={{ scale: 0.98 }}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600" />
-                      <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg blur-lg opacity-30 -z-10" />
                       <span className="relative">Let&apos;s Talk</span>
                     </motion.div>
                   </a>
